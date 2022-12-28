@@ -1,13 +1,13 @@
 # Kubernetes Secrets
 
-###Prerequisites:
+### Prerequisites:
 - minikube installed
-- exisiting API secret created
+- existing API secret created
 
-###Documentation Referenced:
+### Documentation Referenced:
 https://docs.datadoghq.com/agent/guide/secrets-management/?tab=linux#script-for-reading-from-multiple-secret-providers
 
-###Steps
+### Steps
 Encode your secret in base64:
 ``echo -n 'secretPassword' | openssl base64``
 
@@ -15,11 +15,11 @@ Add the base64 encoded password in the secret.yaml and apply it:
 Create the redis-secret:
 ``kubectl apply -f secret.yaml``
 
-Deply agents:
+Deploy agents:
 ``helm install datadog -f values.yaml datadog/datadog``
 
 
-##Reading Secret From File
+## Reading Secret From File
 Uncomment the following annotations from redis.yaml:
 ```
     ad.datadoghq.com/redis.instances: |
@@ -35,7 +35,7 @@ Uncomment the following annotations from redis.yaml:
 Deploy redis pod with these annotations applied:
 ``kubectl apply -f redis.yaml``
 
-####Check Secrets:
+#### Check Secrets:
 To check the secrets that the agent has decrypted, you can run the following command:
 ``kubectl exec -it AGENT_POD agent secret``
 ```
@@ -58,3 +58,26 @@ password: "********"
 ```
 
 ## Reading Secret From Existing Secret
+Uncomment the following annotations from redis.yaml:
+```
+    ad.datadoghq.com/redis.instances: |
+      [
+        {
+          "host": "%%host%%",
+          "port":"6379",
+          "password":"ENC[k8s_secret@default/redis-secret/redis_password]"
+        }
+      ]      
+```
+
+Redeploy the redis pod with the updates
+``kubectl apply -f redis.yaml``
+
+####Check Secrets:
+``kubectl exec -it AGENT_POD agent secret``
+```
+=== Secrets stats ===
+Number of secrets decrypted: 1
+Secrets handle decrypted:
+- k8s_secret@default/redis-secret/redis_password: from redisdb
+```
