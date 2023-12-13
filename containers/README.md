@@ -12,6 +12,15 @@ You can start up minikub using the following command:
 ``minikube start``
 This will spin up a single node cluster on your machine
 
+#### Useful Commands
+```
+kubectl get <RESOURCE>
+kubectl apply -f PATH/TO/FILE
+kubectl describe <RESOURCE> <NAME>
+kubectl exec -it <POD_NAME> -- <COMMAND>
+helm install <RELEASE_NAME> -f PATH/TO/FILE datadog/datadog
+helm upgrade <RELEASE_NAME> -f PATH/TO/FILE datadog/datadog
+```
 #### Deploying the Agents
 We will be deploying the datadog agents using the helm chart. 
 In the ``values.yaml`` file, add your API key here:
@@ -76,4 +85,13 @@ kubectl get pod -o wide
 Using the prometheus-deployment pod IP, we can curl the metrics endpoint exposed by the server:
 ```
 kubectl exec -it <AGENT_POD_NAME> -- curl <POD_IP>:8000/metrics
+```
+
+#### Cleanup
+```
+kubectl delete pod redis
+kubectl delete deployment random-logger
+kubectl delete deployment prometheus-deployment
+helm uninstall datadog
+minikube stop
 ```
