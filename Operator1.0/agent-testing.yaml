@@ -1,0 +1,37 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: op-cluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  override:
+    nodeAgent:
+      image:
+        name: agent
+        tag: 7.51.0
+      containers:
+        agent:
+          env:
+            - name: "DD_IGNORE_AUTOCONF"
+              value: "kube_controller_manager kube_scheduler etcd"
+        #     - name: "DD_CONTAINER_EXCLUDE"
+        #       value: "name:.*"
+        # process-agent:
+        #   env:
+        #     - name: "DD_CONTAINER_EXCLUDE"
+        #       value: "name:.*"
+      # Add overrides to the Cluster Agent
+    clusterAgent:
+      replicas: 1
+      annotations:
+        example: annotation
+  features:
+    orchestratorExplorer:
+      enabled: true

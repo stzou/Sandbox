@@ -1,0 +1,30 @@
+aws-vault exec sso-sandbox-account-admin -- aws ecs update-service \
+  --cluster steve-fargate \
+  --service datadog-agent \
+  --task-definition datadog-agent-sonarqube:2 \
+  --enable-execute-command \
+  --region us-east-2 \
+  --desired-count 1
+
+# An error occurred (InvalidParameterException) when calling the ExecuteCommand operation: 
+# The execute command failed because execute command was not enabled when the task was run 
+# or the execute command agent isn’t running. Wait and try again or run a new task with 
+# execute command enabled and try again.
+
+# had to delete existing task created from service after enabling exec 
+
+aws-vault exec sso-sandbox-account-admin -- aws ecs execute-command \
+  --cluster steve-fargate \
+  --task e83f8280f30b4ddf8c37db7b2bbcc430 \
+  --container datadog-agent \
+  --region us-east-2 \
+  --interactive \
+  --command "/bin/bash"
+
+  ef397255b8614a27a0214db11bdae34d
+
+
+aws-vault exec sso-sandbox-account-admin -- aws ecs describe-tasks \
+    --cluster steve-fargate \
+    --region us-east-2 \
+    --tasks arn:aws:ecs:us-east-2:601427279990:task/steve-fargate/e83f8280f30b4ddf8c37db7b2bbcc430

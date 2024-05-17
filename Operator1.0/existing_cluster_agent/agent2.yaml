@@ -1,0 +1,30 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog2
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  override:
+    nodeAgent:
+      containers:
+        agent:
+          env:
+            - name: DD_CLUSTER_AGENT_ENABLED
+              value: "true"
+            - name: DD_CLUSTER_AGENT_KUBERNETES_SERVICE_NAME
+              value: datadog-cluster-agent
+            - name: DD_CLUSTER_AGENT_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                    name: datadog-token
+                    key: token
+    clusterAgent:
+      disabled: true
+      replicas: 0

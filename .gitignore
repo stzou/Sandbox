@@ -1,0 +1,7 @@
+/APM-Steve/venv
+/K6
+/Minikube*
+/APM/*
+/z*
+
+.DS_Store

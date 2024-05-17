@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-prometheus-deployment
+  labels:
+    app: example-metrics
+    type: all_metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-metrics
+  template: 
+    metadata:
+      name: example-server
+      labels:
+        app: example-metrics
+        type: all_metrics
+      annotations:
+        chainalysis.vector.metrics: "true"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+    spec:
+        containers:
+          - name: example-server
+            image: python:3-slim
+            command: ["python3"]
+            args: ["-m", "http.server", "-d", "example-metrics", "8000"]
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 8000
+            volumeMounts:
+              - name: example-data
+                mountPath: /example-metrics
+        volumes:
+          - name: example-data
+            configMap:
+              name: openmetrics-data
+              items:
+                - key: example-data
+                  path: metrics

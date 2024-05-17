@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+      # annotations:
+      #   ad.datadoghq.com/my-redis.check_names: '["redisdb","redisdb"]'
+      #   ad.datadoghq.com/my-redis.init_configs: '[{},{}]'
+      #   ad.datadoghq.com/my-redis.instances: |
+      #     [
+      #       {
+      #         "host": "%%host%%",
+      #         "password": "my-password",
+      #         "port": "%%port_0%%",
+      #         "tags": [
+      #           "hello:world",
+      #           "foo:bar"
+      #         ]                
+      #       },
+      #       {
+      #         "host": "%%host%%",
+      #         "password": "my-password",
+      #         "port": "100",
+      #         "tags": [
+      #           "hello:world",
+      #           "foo:bar"
+      #         ]                
+      #       }
+      #     ] 
+    spec:
+      containers:
+      # Container named "my-redis" outputting logs every 5 seconds
+      - name: my-redis
+        image: busybox
+        imagePullPolicy: Always
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 5; 
+          echo `date '+%FT%T'` example stdout log; 
+          echo `date '+%FT%T'` example stderr log 1>&2;
+        done;"
+        ]
+        # Creating a matching two ports as shown in the describe
+        ports:
+          - name: port1
+            containerPort: 6379
+          - name: port2
+            containerPort: 7000

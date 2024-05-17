@@ -1,0 +1,36 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: op-cluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  features:
+    clusterChecks:
+      useClusterChecksRunners: true
+      enabled: true
+  override:
+    # Add overrides to the Cluster Agent
+    clusterAgent:
+      replicas: 1
+      extraConfd:
+        # configDataMap:
+        #   redis.yaml: |-
+        #     cluster_check: true
+        #     init_config:
+        #     instances:
+        #       - host: "%%host%%"
+        #         port: "6379"   
+            
+        configMap:
+          name: redis-config-map
+          items:
+            - key: redisdb-config
+              path: redis.yaml
+

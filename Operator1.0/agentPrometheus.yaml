@@ -1,0 +1,36 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  features:
+    prometheusScrape:
+      enabled: true
+      # additionalConfigs:
+      #   -
+      #     configurations:
+      #     - timeout: 5
+      #       send_distribution_buckets: true
+      additionalConfigs: |
+        [
+          {
+            "configurations": [
+              {
+                "timeout": 5,
+                "max_returned_metrics": 5000
+              }
+            ]
+          }
+        ]
+  override:
+    # Add overrides to the Cluster Agent
+    clusterAgent:
+      replicas: 1

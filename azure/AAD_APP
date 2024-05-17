@@ -1,0 +1,13 @@
+
+az ad sp create-for-rbac --name stevezou-sandbox \
+                         --role Contributor \
+                         --scope /subscriptions/8c56d827-5f07-45ce-8f2b-6c5001db5c6f
+
+{
+  "appId": "c176069e-afcf-416c-b9a4-4be472a93376",
+  "displayName": "stevezou-sandbox",
+  "password": "tPY8Q~X2NONizGJhalSLdJOFJBK9MVXTvGe9Mc5I",
+  "tenant": "4d3bac44-0230-4732-9e70-cc00736f0a97"
+}
+
+https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/c176069e-afcf-416c-b9a4-4be472a93376

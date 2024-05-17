@@ -1,0 +1,24 @@
+version: '3'
+services:
+  datadog:
+    image: gcr.io/datadoghq/agent:7
+    container_name: dd-agent
+    pid: host
+    environment:
+     - DD_API_KEY=<MY_API_KEY>
+     - DD_SITE=datadoghq.com
+     # - DD_PROCESS_AGENT_ENABLED=true
+     - DD_LOGS_ENABLED=true
+     - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+     - DD_CONTAINER_EXCLUDE=name:dd-agent
+     - DD_LOG_LEVEL=debug
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /var/lib/docker/containers:/var/lib/docker/containers:ro
+     - /proc/:/host/proc/:ro
+     - /opt/datadog-agent/run:/opt/datadog-agent/run:rw
+     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+    labels:
+      com.datadoghq.ad.check_names: '["redisdb"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6379","password":"%%env_REDIS_PASSWORD%%"}]'

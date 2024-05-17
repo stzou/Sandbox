@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-test
+  labels:
+    app: http
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http
+  template:
+    metadata:
+      labels:
+        app: http
+      annotations:
+        ad.datadoghq.com/app.check_names: '["http_check","http_check","http_check"]'
+        ad.datadoghq.com/app.init_configs: '[{},{},{}]'
+        ad.datadoghq.com/app.instances: |
+          [
+            {
+              "name": "Iguana-Aggregate-Channel-Status-UP",
+              "url": "https://localhost:00000/datadog/channel_status",
+              "check_certificate_expiration": false,
+            },
+            {
+              "name": "Iguana-Channel-Discovery-UP",
+              "url": "https://localhost:00000/datadog/channel_status",
+              "content_match": "(<Channel Name=\".*\" Status=\".*\")",
+              "check_certificate_expiration": false
+            },
+            {
+              "name": "Iguana-Channel-Status-DOWN",
+              "url": "https://localhost:00000/datadog/channel_status",
+              "content_match": "<Channel Name=\".*\" Status=(?!\"on\")",
+              "check_certificate_expiration": false
+            }
+          ]
+    spec:
+      containers:
+      # Container named "app" outputting logs every 5 seconds
+      - name: app
+        image: busybox
+        imagePullPolicy: Always
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 5; 
+          echo `date '+%FT%T'` example stdout log; 
+          echo `date '+%FT%T'` example stderr log 1>&2;
+        done;"
+        ]
+        # ad.datadoghq.com/app.check_names: '["http_check","http_check","http_check"]'
+        # ad.datadoghq.com/app.init_configs: '[{},{},{}]'
+        # ad.datadoghq.com/app.instances: |
+        #   [
+        #     {
+        #       "name": "Iguana-Aggregate-Channel-Status-UP",
+        #       "url": "https://localhost:00000/datadog/channel_status",
+        #       "check_certificate_expiration": false
+        #     },
+        #     {
+        #       "name": "Iguana-Channel-Discovery-UP",
+        #       "url": "https://localhost:00000/datadog/channel_status",
+        #       "content_match": '(<Channel Name=".*" Status=".*")',
+        #       "check_certificate_expiration": false
+        #     },
+        #     {
+        #       "name": "Iguana-Channel-Status-DOWN",
+        #       "url": "https://localhost:00000/datadog/channel_status",
+        #       "content_match": '<Channel Name=".*" Status=(?!"on")',
+        #       "check_certificate_expiration": false
+        #     }
+        #   ]

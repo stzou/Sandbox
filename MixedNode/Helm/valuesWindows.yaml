@@ -1,0 +1,27 @@
+targetSystem: "windows"
+registry: public.ecr.aws/datadog
+datadog:
+  apiKey: <MY_API_KEY>
+  logLevel: debug
+  kubelet:
+    tlsVerify: false
+  kubeStateMetricsEnabled: false
+  logs:
+    enabled: true
+    containerCollectAll: false
+  processAgent:
+    enabled: true
+    processCollection: true
+existingClusterAgent:
+  join: true
+  serviceName: "datadog-cluster-agent" # from the first Datadog Helm chart
+  tokenSecretName: "datadog-cluster-agent" # from the first Datadog Helm chart
+datadog-crds:
+  crds:
+    datadogMetrics: false
+agents:
+  enabled: true
+  image:
+    name: agent
+    tag: latest
+

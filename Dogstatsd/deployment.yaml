@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-python-uds
+spec:
+  selector:
+    matchLabels:
+      app: hello-python-uds
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-python-uds
+        tags.datadoghq.com/slug: us-west-2-template
+        tags.datadoghq.com/env: "testenv"
+      annotations:
+        ad.datadoghq.com/tags: '{"role": "dogstatsd", "library":"python"}'
+    spec:
+      containers:
+      - name: hello-python
+        image: stzou/python-dsd:uds
+        env:
+        - name: DD_ENV
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['tags.datadoghq.com/env']
+        - name: DD_AGENT_HOST
+          valueFrom:
+              fieldRef:
+                  fieldPath: status.hostIP
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8100
+          hostPort: 8100
+        volumeMounts:
+          - name: dsdsocket
+            mountPath: /var/run/datadog
+            readOnly: true
+      volumes:
+          - hostPath:
+                path: /var/run/datadog/
+            name: dsdsocket

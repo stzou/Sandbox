@@ -1,0 +1,12 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-config-map
+  namespace: default
+data:
+  redisdb-config: |-
+    cluster_check: true
+    init_config:
+    instances:
+      - host: "%%host%%"
+        port: "6379"   

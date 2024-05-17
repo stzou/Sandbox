@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: External
+    external:
+      metric:
+        name: kubernetes.memory.usage
+      target:
+        type: AverageValue
+        averageValue: 50
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: redis

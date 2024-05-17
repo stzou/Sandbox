@@ -1,0 +1,78 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ca-central-1:601427279990:task-definition/SteveZou-Basic:2",
+    "containerDefinitions": [
+        {
+            "name": "example-app",
+            "image": "docker.io/jacksondavenport/random-logger:latest",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": []
+        },
+        {
+            "name": "datadog-agent",
+            "image": "public.ecr.aws/datadog/agent:latest",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "ECS_FARGATE",
+                    "value": "true"
+                },
+                {
+                    "name": "DD_ADDITIONAL_ENDPOINTS",
+                    "value": "{   \"https://app.datadoghq.com\": [     \"..\"   ] }"
+                },
+                {
+                    "name": "DD_API_KEY",
+                    "value": "<MY_API_KEY>"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": []
+        }
+    ],
+    "family": "SteveZou-Basic",
+    "networkMode": "awsvpc",
+    "revision": 2,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "registeredAt": "2023-10-18T19:44:32.519Z",
+    "registeredBy": "arn:aws:sts::601427279990:assumed-role/AWSReservedSSO_account-admin_18a9d6e974997719/danny.serrano@datadoghq.com",
+    "tags": [
+        {
+            "key": "PrincipalId",
+            "value": "AROAYYB64AB3JW3VETDNL"
+        },
+        {
+            "key": "User",
+            "value": "danny.serrano@datadoghq.com"
+        }
+    ]
+}
+
+
+
+
+

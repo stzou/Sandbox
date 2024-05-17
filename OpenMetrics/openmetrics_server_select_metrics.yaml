@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-prometheus-deployment
+  labels:
+    app: example-metrics
+    type: select_metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-metrics
+  template: 
+    metadata:
+      name: example-server
+      labels:
+        app: example-metrics
+        type: select_metrics
+      annotations:
+        ad.datadoghq.com/example-server.check_names: '["openmetrics"]'
+        ad.datadoghq.com/example-server.init_configs: '[{}]'
+        ad.datadoghq.com/example-server.instances: |
+          [{
+              "prometheus_url": "http://%%host%%:8000/metrics",
+              "namespace": "openmetrics_example.select",
+              "metrics": [{
+                "http_server_duration": "duration",
+                "http_server_requests": "requests"
+              }]
+          }]
+    spec:
+        containers:
+          - name: example-server
+            image: python:3-slim
+            command: ["python3"]
+            args: ["-m", "http.server", "-d", "example-metrics", "8000"]
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 8000
+            volumeMounts:
+              - name: example-data
+                mountPath: /example-metrics
+        volumes:
+          - name: example-data
+            configMap:
+              name: openmetrics-data
+              items:
+                - key: example-data
+                  path: metrics

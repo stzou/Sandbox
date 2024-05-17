@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: sleep-active
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            tags.datadoghq.com/service: sleep-testing
+        spec:
+          containers:
+          - name: sleep-late
+            image: polinux/stress
+            imagePullPolicy: IfNotPresent
+            command: [ "/bin/sh", "-c", "--" ]
+            args: [ "echo 'Starting Stress'; stress --cpu 1 --timeout 10s --verbose; sleep 20; echo 'Done';" ]

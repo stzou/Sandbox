@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        admission.datadoghq.com/enabled: "true"
+        # admission.datadoghq.com/python-lib.version: latest
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        env:
+          - name: DD_TRACE_DEBUG
+            value: 'true'
+          - name: DD_TRACE_LOG_FILE
+            value: 'ddtrace_logs.log'
+        ports:
+        - containerPort: 80

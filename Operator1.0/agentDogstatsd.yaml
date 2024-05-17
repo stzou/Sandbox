@@ -1,0 +1,29 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  features:
+    externalMetricsServer:
+      enabled: false
+      useDatadogMetrics: false
+    dogstatsd:
+      unixDomainSocketConfig:
+        enabled: true
+        path: "/var/run/datadog/dsd.socket"
+  override:
+    # Add overrides to the Cluster Agent
+    clusterAgent:
+      replicas: 1
+    nodeAgent:
+      env:
+        - name: DD_DOGSTATSD_SOCKET
+          value: "/var/run/datadog/dsd.socket"

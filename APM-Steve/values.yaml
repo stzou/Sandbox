@@ -1,0 +1,7 @@
+datadog:
+  apiKeyExistingSecret: datadog-agent
+  appKey: <MY_APP_KEY>
+  kubelet: 
+    tlsVerify: false
+  apm:
+    socketEnabled: true

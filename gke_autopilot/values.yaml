@@ -1,0 +1,45 @@
+datadog:
+  apiKey: <MY_API_KEY>
+  logs:
+    enabled: true
+  apm:
+    portEnabled: true
+clusterAgent:
+  enabled: true
+  metricsProvider:
+    enabled: true
+agents:
+  containers:
+    agent:
+      # resources for the Agent container
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+          ephemeral-storage: 1Mi
+
+    traceAgent:
+      # resources for the Trace Agent container
+      resources:
+        requests:
+          cpu: 100m
+          memory: 200Mi
+          ephemeral-storage:  200Mi
+
+    processAgent:
+      # resources for the Process Agent container
+      resources:
+        requests:
+          cpu: 100m
+          memory: 200Mi
+          ephemeral-storage:  50Mi
+    initContainers:
+      resources:
+        requests:
+          ephemeral-storage:  50Mi
+
+  priorityClassCreate: true
+
+providers:
+  gke:
+    autopilot: true

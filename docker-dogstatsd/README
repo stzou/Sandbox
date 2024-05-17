@@ -1,0 +1,19 @@
+Dogstatsd with docker containers(no kubernetes)
+
+The key here is where the metric packets should be sent. In our docs, we only have instructions containing localhost, but this doesn't work with containers. The application needs to submit metrics to the datadog agent container.
+Provide the DD_AGENT_HOST env var on the application deployment. Here, datadog matches the datadog agent container name:
+```
+  python-dsd:
+    image: python-dsd:udp
+    container_name: dsd
+    environment:
+     - DD_AGENT_HOST=datadog
+```
+In the script, set the statsd_host to the DD_AGENT_HOST env var:
+```
+ip = os.environ.get("DD_AGENT_HOST")
+options = {
+    'statsd_host':ip,
+    'statsd_port':8125
+}
+```

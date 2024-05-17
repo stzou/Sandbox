@@ -1,0 +1,7 @@
+
+
+Connecting to Cluster:
+https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters#cloud_shell
+```
+dig +short myip.opendns.com @resolver1.opendns.com
+```

@@ -1,0 +1,49 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  features:
+    externalMetricsServer:
+      enabled: false
+      useDatadogMetrics: false
+  override:
+      # Add overrides to the (Node) Agent 
+      nodeAgent:
+        # Create a ConfigMap and mount in this "tcp_check.yaml" file
+        extraConfd:
+          configDataMap:
+            tcp_check.yaml: |-
+              init_config:
+              instances:
+                - name: trace-agent
+                  host: localhost
+                  port: 8126
+        # Configurations specific to the containers "agent" and "trace-agent"
+        containers: 
+          agent: 
+            resources:
+              limits:
+                cpu: 200m
+                memory: 200Mi
+          trace-agent:
+            logLevel: info
+
+      # Add overrides to the Cluster Agent
+      clusterAgent:
+        replicas: 1
+        # Create a ConfigMap and mount in this "http_check.yaml" file for a Cluster Check
+        extraConfd:
+          configDataMap:
+            helm.yaml: |-
+              init_config:
+              instances:
+                - collect_events: false

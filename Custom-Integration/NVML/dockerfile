@@ -1,0 +1,13 @@
+# As the NVML integration is a community integration, it is not packaged with the Agent image by default. A custom image with the packaged integration should therefore be used in containerized environments.
+# Setup taken from https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
+
+# Installs the NVML integration version 1.0.6.
+# See the changelog for the other versions that are available (https://github.com/DataDog/integrations-extras/blob/master/nvml/CHANGELOG.md)
+FROM gcr.io/datadoghq/agent:7.43.1
+RUN agent integration install -t -r datadog-nvml==1.0.6
+
+RUN pip install pynvml==11.4.1 grpcio==1.54.0
+
+# Why do you need these variables: See https://github.com/NVIDIA/nvidia-docker/wiki/Usage
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES all

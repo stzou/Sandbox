@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-apm-auto
+  labels:
+    app: python-apm-auto
+    service: sample-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-apm-auto  
+  template:
+    metadata:
+      labels:
+        app: python-apm-auto
+        tags.datadoghq.com/service: python-auto
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/python-lib.version: v1.15.0
+        ad.datadoghq.com/sample-python-app.checks: |
+          {
+            "http_check": {
+              "instances": [{
+                "url": "http://%%host%%:3000",
+                "name": "sample-python"
+              }]
+            }
+          }
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+        - name: sample-python-app
+          image: docker.io/jacksondavenport/sample-python-app:no-tracer
+          imagePullPolicy: Always
+          #securityContext:
+          #  runAsUser: 101
+          env:
+          - name: DD_TRACE_DEBUG
+            value: "true"

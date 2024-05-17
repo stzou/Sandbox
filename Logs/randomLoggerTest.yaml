@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: random-logger
+  labels:
+    app: random-logger
+spec:
+  selector:
+    matchLabels:
+      app: random-logger
+  template:
+    metadata:
+      labels:
+        app: random-logger
+      annotations:
+        ad.datadoghq.com/busybox.logs: '[{"source": "busybox","service": "my-app","type": "file","path": "/var/log/example/app*.log","tags":["podIP:%%host%%"]}]'
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          imagePullPolicy: Always
+          command: [ "/bin/sh", "-c", "--" ]
+          args: [ "while true; do sleep 10; 
+          echo `date` first log file >> /var/log/example/app.log; 
+          echo `date` second log file >> /var/log/example/app2.log; 
+          done;" ]
+          env:
+            - name: PODIP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/example
+      volumes:
+        - name: logs
+          hostPath: 
+            path: /var/log/example
+# Mount the path in values.yaml
+#   volumes: #[]
+#   - name: busybox
+#     hostPath:
+#       path: /var/log/example
+#     # (...)
+#   #   - hostPath:
+#   #       path: <HOST_PATH>
+#   #     name: <VOLUME_NAME>
+
+#   # agents.volumeMounts -- Specify additional volumes to mount in all containers of the agent pod
+#   volumeMounts: #[]
+#   - mountPath: /var/log/example
+#     name: busybox

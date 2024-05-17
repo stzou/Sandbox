@@ -1,0 +1,10 @@
+targetSystem: "linux"
+datadog:
+  apiKey: <MY_API_KEY>
+  logLevel: debug
+  kubelet:
+    tlsVerify: false
+  kubeStateMetricsEnabled: false
+  logs:
+    enabled: true
+    containerCollectAll: false

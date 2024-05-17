@@ -1,0 +1,37 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  features:
+    apm:
+      enabled: true
+      hostPortConfig:
+        enabled: true
+    logCollection:
+      enabled: true
+    otlp:
+      receiver:
+        protocols:
+          http:
+            enabled: true
+            endpoint: '0.0.0.0:4318'
+  # override:
+  #   nodeAgent:
+  #     containers:
+  #       agent:
+  #         env:
+  #           - name: DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENDPOINT # enables HTTP receiver on port 4318
+  #             value: "0.0.0.0:4318"
+  #       trace-agent:
+  #         env:
+  #           - name: DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENDPOINT # enables HTTP receiver on port 4318
+  #             value: "0.0.0.0:4318"

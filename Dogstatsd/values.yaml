@@ -1,0 +1,48 @@
+targetSystem: "linux"
+registry: gcr.io/datadoghq
+
+datadog:
+  apiKeyExistingSecret: datadog-agent
+  clustername: mini
+  securityContext: {}
+  hostVolumeMountPropagation: None
+  logLevel: DEBUG
+  kubeStateMetricsEnabled: false
+  kubelet:
+    host:
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    tlsVerify: false
+  #ignore control plane checks for Minikube
+  ignoreAutoConfig:
+    - etcd
+    - kube_controller_manager 
+    - kube_scheduler 
+    
+  dogstatsd:
+    port: 8125
+    originDetection: true
+    tags: []
+    tagCardinality: high
+    useSocketVolume: true
+    socketPath: /var/run/datadog/dsd.socket
+    hostSocketPath: /var/run/datadog/
+    useHostPort: true
+    useHostPID: true
+    nonLocalTraffic: true
+  collectEvents: true
+  leaderElection: true
+  logs:
+    enabled: true
+    containerCollectAll: true
+    containerCollectUsingFiles: true
+  env: 
+    - name: DD_ENV
+      value: testinghere
+    - name: DD_HOSTNAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+      value: '{"tags.datadoghq.com/slug":"slug"}'

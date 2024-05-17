@@ -1,0 +1,14 @@
+Relevant Doc:
+https://docs.datadoghq.com/containers/kubernetes/tag/?tab=containerizedagent#pod-labels-as-tags
+
+Add the following in values.yaml:
+  # datadog.env -- Set environment variables for all Agents
+
+  ## The Datadog Agent supports many environment variables.
+  ## ref: https://docs.datadoghq.com/agent/docker/?tab=standard#environment-variables
+  env:
+    - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+      value: '{"labelAsTag":"labelAsTag"}'
+
+
+

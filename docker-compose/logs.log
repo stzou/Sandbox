@@ -1,0 +1,326 @@
+[
+    {
+        "Id": "e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02",
+        "Created": "2023-04-05T20:57:56.53554072Z",
+        "Path": "/bin/entrypoint.sh",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2779854,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2023-04-05T20:57:56.837956636Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:e9973344705d4a848b1979fad11e7670a969497f77c01c9375f0ad0561d02c4d",
+        "ResolvConfPath": "/var/lib/docker/containers/e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02/hostname",
+        "HostsPath": "/var/lib/docker/containers/e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02/hosts",
+        "LogPath": "/var/lib/docker/containers/e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02/e38225f068f41ec108f334f6a85fa1e79c223c073a3afaf7a27847fad7ba2b02-json.log",
+        "Name": "/dd-agent",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/var/run/docker.sock:/var/run/docker.sock:rw",
+                "/var/lib/docker/containers:/var/lib/docker/containers:ro",
+                "/proc/:/host/proc:ro",
+                "/host_mnt/opt/datadog-agent/run:/opt/datadog-agent/run:rw",
+                "/sys/fs/cgroup:/host/sys/fs/cgroup:ro"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "docker-compose_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "host",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "label=disable"
+            ],
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/147d3b00760f6d5c2383494383c1a8db1d0e65eabc1748f2cf7a68d5d94689ca-init/diff:/var/lib/docker/overlay2/5ff214f2452550c3c106290dfeda1deaa3e00463b1533b6ad74bb85fba004993/diff",
+                "MergedDir": "/var/lib/docker/overlay2/147d3b00760f6d5c2383494383c1a8db1d0e65eabc1748f2cf7a68d5d94689ca/merged",
+                "UpperDir": "/var/lib/docker/overlay2/147d3b00760f6d5c2383494383c1a8db1d0e65eabc1748f2cf7a68d5d94689ca/diff",
+                "WorkDir": "/var/lib/docker/overlay2/147d3b00760f6d5c2383494383c1a8db1d0e65eabc1748f2cf7a68d5d94689ca/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/var/run/docker.sock",
+                "Destination": "/var/run/docker.sock",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/var/lib/docker/containers",
+                "Destination": "/var/lib/docker/containers",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rslave"
+            },
+            {
+                "Type": "bind",
+                "Source": "/proc",
+                "Destination": "/host/proc",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/host_mnt/opt/datadog-agent/run",
+                "Destination": "/opt/datadog-agent/run",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/sys/fs/cgroup",
+                "Destination": "/host/sys/fs/cgroup",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "0c5e7d2aef96e730205a661d0ce001b7370ea37f755994f59515dd86465befe3",
+                "Source": "/var/lib/docker/volumes/0c5e7d2aef96e730205a661d0ce001b7370ea37f755994f59515dd86465befe3/_data",
+                "Destination": "/var/log/datadog",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "49dd5c46ae7c9d151527f73aad7f61c310accbaf2e030680d2e9a157d062b77a",
+                "Source": "/var/lib/docker/volumes/49dd5c46ae7c9d151527f73aad7f61c310accbaf2e030680d2e9a157d062b77a/_data",
+                "Destination": "/var/run/s6",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "e38225f068f4",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "8125/udp": {},
+                "8126/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true",
+                "DD_CONTAINER_EXCLUDE=name:dd-agent",
+                "DD_LOG_LEVEL=debug",
+                "DD_API_KEY=<MY_API_KEY>",
+                "DD_SITE=datadoghq.com",
+                "DD_LOGS_ENABLED=true",
+                "PATH=/opt/datadog-agent/bin/agent/:/opt/datadog-agent/embedded/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "DEBIAN_FRONTEND=noninteractive",
+                "DOCKER_DD_AGENT=true",
+                "DD_PYTHON_VERSION=3",
+                "CURL_CA_BUNDLE=/opt/datadog-agent/embedded/ssl/certs/cacert.pem",
+                "S6_KEEP_ENV=1",
+                "S6_LOGGING=0",
+                "S6_BEHAVIOUR_IF_STAGE2_FAILS=2",
+                "S6_READ_ONLY_ROOT=1",
+                "DD_SECRET_BACKEND_COMMAND_ALLOW_GROUP_EXEC_PERM=true",
+                "LD_PRELOAD=/lib/x86_64-linux-gnu/nosys.so"
+            ],
+            "Cmd": [
+                "/bin/entrypoint.sh"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD",
+                    "/probe.sh"
+                ],
+                "Interval": 30000000000,
+                "Timeout": 5000000000,
+                "Retries": 2
+            },
+            "Image": "gcr.io/datadoghq/agent:7",
+            "Volumes": {
+                "/host/proc": {},
+                "/host/sys/fs/cgroup": {},
+                "/opt/datadog-agent/run": {},
+                "/var/lib/docker/containers": {},
+                "/var/log/datadog": {},
+                "/var/run/docker.sock": {},
+                "/var/run/s6": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "com.docker.compose.config-hash": "b1a94403118e88a6477ca7b1f4133800a88a1248b63281357d815c26e10bccd2",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:e9973344705d4a848b1979fad11e7670a969497f77c01c9375f0ad0561d02c4d",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "docker-compose",
+                "com.docker.compose.project.config_files": "/Users/steve.zou/Desktop/Minikube/docker-compose/docker-compose.yml",
+                "com.docker.compose.project.working_dir": "/Users/steve.zou/Desktop/Minikube/docker-compose",
+                "com.docker.compose.service": "datadog",
+                "com.docker.compose.version": "2.6.0",
+                "maintainer": "Datadog \u003cpackage@datadoghq.com\u003e"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "b44eea2665edacad3b1cc168560956fce94d40fb907dbd509337327c3a97efdb",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "8125/udp": null,
+                "8126/tcp": null
+            },
+            "SandboxKey": "/var/run/docker/netns/b44eea2665ed",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "docker-compose_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "dd-agent",
+                        "datadog",
+                        "e38225f068f4"
+                    ],
+                    "NetworkID": "56603a5be23a2ba429b82eac333eb42ef0f44dcbb77884f6e608420835ba4dda",
+                    "EndpointID": "248d85ad79b5283bbbac1069b63d74b48d3d97e9091191f42070417b35143ca0",
+                    "Gateway": "172.19.0.1",
+                    "IPAddress": "172.19.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:13:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,39 @@
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: nginxext
+# spec:
+#   minReplicas: 1
+#   maxReplicas: 3
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: redis
+#   metrics:
+#   - type: External
+#     external:
+#       metric:
+#         name: system.cpu.user
+#       target:
+#         type: AverageValue
+#         averageValue: 9
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginxext
+spec:
+  minReplicas: 1
+  maxReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: redis
+  metrics:
+  - type: External
+    external:
+      metric:
+        name: datadogmetric@default:nginx-requests
+      target:
+        type: AverageValue
+        averageValue: 9

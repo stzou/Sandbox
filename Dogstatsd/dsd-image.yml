@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dogstatsd
+spec:
+  selector:
+    matchLabels:
+      app: dogstatsd
+  template:
+    metadata:
+      labels:
+        app: dogstatsd
+      name: dogstatsd
+    spec:
+      containers:
+      - image: datadog/dogstatsd:latest
+        imagePullPolicy: Always
+        name: dogstatsd
+        env:
+          - name: DD_API_KEY
+            value: "<MY_API_KEY>"
+          - name: DD_DOGSTATSD_SOCKET
+            value: "/socket/dsd.socket"
+          - name: DD_ENABLE_METADATA_COLLECTION
+            value: "false"
+          - name: DD_HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        volumeMounts:
+          - name: dsdsocket
+            mountPath: /socket
+      volumes:
+        - hostPath:
+            path: /var/run/datadog
+          name: dsdsocket

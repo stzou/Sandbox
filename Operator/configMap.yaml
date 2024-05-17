@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datadog-confd-config
+data:
+  coredns.yaml: |-
+    ad_identifiers:
+    - coredns
+    - coredns-coredns
+    init_config:
+    instances:
+    - prometheus_url: "http://%%host%%:9153/metrics"

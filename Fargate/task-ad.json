@@ -1,0 +1,36 @@
+{
+    "family": "Stev-Redis",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "redis",
+            "image": "redis:latest",
+            "dockerLabels": {
+                "com.datadoghq.ad.check_names": "[\"redisdb\"]",
+                "com.datadoghq.ad.init_configs": "[{}]",
+                "com.datadoghq.ad.instances": "[{\"host\": \"localhost\",\"port\":\"6379\",\"tags\":[\"example-tag:from-fargate\"]}]"
+            }
+        },
+        {
+            "name": "datadog-agent",
+            "image": "public.ecr.aws/datadog/agent:latest",
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DD_API_KEY",
+                    "value": "<MY_API_KEY>"
+                },
+                {
+                    "name": "ECS_FARGATE",
+                    "value": "true"
+                }
+            ]
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+  }
+  

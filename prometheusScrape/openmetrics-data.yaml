@@ -1,0 +1,40 @@
+# Example data to return for our example openmetrics server
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: openmetrics-data
+  namespace: default
+data:
+  example-data: |-    
+    # HELP http_server_duration
+    # TYPE http_server_duration gauge
+    http_server_duration{name="hello",tag_extra="a"} 5.0
+    http_server_duration{name="hello",tag_extra="b"} 10.0
+    http_server_duration{name="world",tag_extra="a"} 15.0
+    http_server_duration{name="world",tag_extra="b"} 20.0
+    http_server_duration{name="world",tag_extra="c"} 25.0
+
+    # HELP http_server_requests
+    # TYPE http_server_requests counter
+    http_server_requests{name="hello",tag_extra="a"} 1.0
+    http_server_requests{name="hello",tag_extra="b"} 2.0
+    http_server_requests{name="world",tag_extra="a"} 3.0
+    http_server_requests{name="world",tag_extra="b"} 4.0
+    http_server_requests{name="world",tag_extra="c"} 5.0
+
+    # HELP http_server_histogram_duration
+    # TYPE http_server_histogram_duration histogram
+    http_server_histogram_duration_bucket{name="hello",le="0.25"} 3.0
+    http_server_histogram_duration_bucket{name="hello",le="0.50"} 10.0
+    http_server_histogram_duration_bucket{name="hello",le="0.75"} 5.0
+    http_server_histogram_duration_bucket{name="hello",le="0.99"} 2.0
+    http_server_histogram_duration_bucket{name="hello",le="+Inf"} 1.0
+    http_server_histogram_duration_count{name="hello"} 1
+    http_server_histogram_duration_sum{name="hello"} 21
+
+    # HELP database_queries
+    # TYPE database_queries counter
+    database_queries{name="hello",database="db1"} 5.0
+    database_queries{name="hello",database="db2"} 10.0
+    database_queries{name="hello",database="db3"} 20.0
+    database_queries{name="hello",database="db4"} 25.0

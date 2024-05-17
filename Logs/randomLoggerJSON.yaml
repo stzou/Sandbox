@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: random-logger
+  labels:
+    app: random-logger
+spec:
+  selector:
+    matchLabels:
+      app: random-logger
+  template:
+    metadata:
+      labels:
+        app: random-logger
+      annotations:
+        ad.datadoghq.com/tags: '{"node_ip":"%%env_NODEIP%%"}'
+        # ad.datadoghq.com/busybox.logs: >-
+        #   [{
+        #     "source": "busybox",
+        #     "service": "my-app",
+        #     "type":"file",
+        #     "path":"/var/log/example/testing.log",
+        #     "log_processing_rules": [{
+        #       "type": "exclude_at_match",
+        #       "name": "exclude_datadoghq_users",
+        #       "pattern" : ".*HTTP/1.1\"\\s2\\d{2}\\s\\d\\s\"-\"\\s\"-\""
+        #     }]
+        #   }] 
+        # ad.datadoghq.com/busybox.logs: '[{"source":"busybox","service":"my-app","type":"file","path":"/var/log/example/app*.log"}]'
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          imagePullPolicy: Always
+          command: [ "/bin/sh", "-c", "--" ]
+          args: [ "while true; do sleep 10; 
+          echo `date` first log file; 
+          echo `date` second log file; 
+          done;" ]
+          # args: [ 'while true; do sleep 10; 
+          # echo `date` first log file >> /var/log/example/app.log; 
+          # echo {\"level\":\"info\",\"ddsource\":\"testing\",\"src\":{\"function\":\"main.logBuildInfo\",\"file\":\"/go/src/app/cmd/service/main.go\",\"line\":60},\"msg\":\"alert-management-service build info\",\"build\":{\"version\":\"1.0.0\",\"commit\":\"eab266b\",\"branch\":\"HEAD\",\"build_number\":\"999\"}}\n; 
+          # done;']
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/example
+      volumes:
+        - name: logs
+          hostPath: 
+            path: /var/log/example
+# Mount the path in values.yaml
+#   volumes: #[]
+#   - name: busybox
+#     hostPath:
+#       path: /var/log/example
+#     # (...)
+#   #   - hostPath:
+#   #       path: <HOST_PATH>
+#   #     name: <VOLUME_NAME>
+
+#   # agents.volumeMounts -- Specify additional volumes to mount in all containers of the agent pod
+#   volumeMounts: #[]
+#   - mountPath: /var/log/example
+#     name: busybox

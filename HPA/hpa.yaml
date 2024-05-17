@@ -1,0 +1,30 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa
+  labels:
+    label1: test
+spec:
+  minReplicas: 1
+  maxReplicas: 2
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: redis
+  metrics:
+  - type: External
+    external:
+      metricName: datadogmetric@default:nginx-requests
+      targetAverageValue: 50
+# spec:
+#   minReplicas: 1
+#   maxReplicas: 3
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: redis
+#   metrics:
+#   - type: External
+#     external:
+#       metricName: system.cpu.user
+#       targetAverageValue: 50

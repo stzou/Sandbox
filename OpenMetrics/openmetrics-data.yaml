@@ -1,0 +1,168 @@
+# Example data to return for our example openmetrics server
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: openmetrics-data
+  namespace: default
+data:
+  example-data: |-    
+    # HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+    # TYPE go_memstats_alloc_bytes gauge
+    go_memstats_alloc_bytes 5.723048e+06
+    # HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
+    # TYPE go_memstats_alloc_bytes_total counter
+    go_memstats_alloc_bytes_total 1.48801088e+08
+    
+    # HELP http_server_duration
+    # TYPE http_server_duration gauge
+    http_server_duration{name="hello",tag_extra="a"} 5.0
+    http_server_duration{name="hello",tag_extra="b"} 10.0
+    http_server_duration{name="world",tag_extra="a"} 15.0
+    http_server_duration{name="world",tag_extra="b"} 20.0
+    http_server_duration{name="world",tag_extra="c"} 25.0
+    
+    # HELP cloudprober_hostname
+    # TYPE cloudprober_hostname gauge
+    cloudprober_hostname{ptype="sysvars",probe="sysvars",val="cloudprober-test-74485c88bb-phwtq"} 1
+
+    # TYPE cloudprober_instance_id gauge
+    cloudprober_instance_id{ptype="sysvars",probe="sysvars",val="1372795855873577313"} 1
+
+    # TYPE pinecone_vector_count untyped
+    pinecone_vector_count{app="replicas-1",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.40.49:5008",job="kubernetes-pods",namespace="collection-properties-15-1-q-development-2f15b457",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="collection-properties-15-1-q-development",pod="replicas-1-5b56b7df94-jmqgr",pod_template_hash="5b56b7df94",role="replicas"} 406913 1705958075053
+    pinecone_vector_count{app="replicas-2",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.31.36:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-2-58d9cdd8c5-9ztlw",pod_template_hash="58d9cdd8c5",role="replicas"} 449776 1705958079119
+    pinecone_vector_count{app="replicas-3",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.55.111:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-3-6bd95f8ff5-g58kq",pod_template_hash="6bd95f8ff5",role="replicas"} 450607 1705958082482
+    pinecone_vector_count{app="replicas-0",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.21.167:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-0-5cc499f98c-wdh57",pod_template_hash="5cc499f98c",role="replicas"} 449951 1705958076726
+    pinecone_vector_count{app="replicas-2",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.55.7:5008",job="kubernetes-pods",namespace="collection-properties-15-1-q-development-2f15b457",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="collection-properties-15-1-q-development",pod="replicas-2-748798dc7b-n8m7b",pod_template_hash="748798dc7b",role="replicas"} 406906 1705958076360
+    pinecone_vector_count{app="replicas-1",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.35.253:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-1-79b8645479-rkx5d",pod_template_hash="79b8645479",role="replicas"} 450056 1705958079979
+    pinecone_vector_count{app="replicas-2",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.16.84:5008",job="kubernetes-pods",namespace="block-spans-14-1-development-8dad757b",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="block-spans-14-1-development",pod="replicas-2-7b77448848-h2zsk",pod_template_hash="7b77448848",role="replicas"} 548334 1705958079883
+    pinecone_vector_count{app="replicas-3",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.33.255:5008",job="kubernetes-pods",namespace="block-spans-14-1-development-8dad757b",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="block-spans-14-1-development",pod="replicas-3-8679bc7748-7vxzq",pod_template_hash="8679bc7748",role="replicas"} 549162 1705958082379
+    pinecone_vector_count{app="replicas-1",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.48.219:5008",job="kubernetes-pods",namespace="block-spans-14-1-development-8dad757b",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="block-spans-14-1-development",pod="replicas-1-6bdb64cbc6-25l87",pod_template_hash="6bdb64cbc6",role="replicas"} 549098 1705958079216
+    pinecone_vector_count{app="replicas-0",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.20.160:5008",job="kubernetes-pods",namespace="block-spans-14-1-development-8dad757b",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="block-spans-14-1-development",pod="replicas-0-664cc6d78d-fzdwq",pod_template_hash="664cc6d78d",role="replicas"} 548810 1705958079761
+    pinecone_vector_count{app="replicas-3",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.22.65:5008",job="kubernetes-pods",namespace="collection-properties-15-1-q-development-2f15b457",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="collection-properties-15-1-q-development",pod="replicas-3-755dfd4778-46pdk",pod_template_hash="755dfd4778",role="replicas"} 406878 1705958074531
+    pinecone_vector_count{app="replicas-0",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.29.98:5008",job="kubernetes-pods",namespace="collection-properties-15-1-q-development-2f15b457",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="collection-properties-15-1-q-development",pod="replicas-0-846d577cb8-psn5n",pod_template_hash="846d577cb8",role="replicas"} 407488 1705958079082
+
+    # TYPE pinecone_request_count untyped
+    pinecone_request_count{app="replicas-3",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.55.111:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-3-6bd95f8ff5-g58kq",pod_template_hash="6bd95f8ff5",request_type="query",role="replicas"} 281 1705958082482
+    pinecone_request_count{app="replicas-1",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.35.253:5008",job="kubernetes-pods",namespace="tmp-block-spans-20240110-development-f792a885",operator_pinecone_io_sha="206cb9c",operator_pinecone_io_version="0.7.0",pinecone_cr="tmp-block-spans-20240110-development",pod="replicas-1-79b8645479-rkx5d",pod_template_hash="79b8645479",request_type="upsert",role="replicas"} 4525 1705958082487
+    pinecone_request_count{app="replicas-0",database_pinecone_io_pod_family="p",database_pinecone_io_version="3.1.0-git-113557b",instance="10.100.29.98:5008",job="kubernetes-pods",namespace="collection-properties-15-1-q-development-2f15b457",operator_pinecone_io_sha="2c07306",operator_pinecone_io_version="0.7.0",pinecone_cr="collection-properties-15-1-q-development",pod="replicas-0-846d577cb8-psn5n",pod_template_hash="846d577cb8",request_type="query",role="replicas"} 116703 1705958082489
+
+
+    # HELP http_server_requests
+    # TYPE http_server_requests counter
+    http_server_requests{name="hello",tag_extra="a"} 1.0
+    http_server_requests{name="hello",tag_extra="b"} 2.0
+    http_server_requests{name="world",tag_extra="a"} 3.0
+    http_server_requests{name="world",tag_extra="b"} 4.0
+    http_server_requests{name="world",tag_extra="c"} 5.0
+
+    # HELP http_server_histogram_duration
+    # TYPE http_server_histogram_duration histogram
+    http_server_histogram_duration_bucket{name="hello",le="0.25"} 3.0
+    http_server_histogram_duration_bucket{name="hello",le="0.50"} 10.0
+    http_server_histogram_duration_bucket{name="hello",le="0.75"} 5.0
+    http_server_histogram_duration_bucket{name="hello",le="0.99"} 2.0
+    http_server_histogram_duration_bucket{name="hello",le="+Inf"} 1.0
+    http_server_histogram_duration_count{name="hello"} 1
+    http_server_histogram_duration_sum{name="hello"} 21
+    http_server_histogram_duration_max{name="hello"} 88
+
+    # HELP metric_a
+    # TYPE metric_a counter
+    metric_a{database="db1"} 5.0
+    metric_a{database="db2"} 10.0
+
+    # HELP metric_b
+    # TYPE metric_b counter
+    metric_b{type="type1",database="db1"} 5.0
+    metric_b{type="type2",database="db2"} 10.0
+
+    # HELP database_queries
+    # TYPE database_queries counter
+    database_queries{name="hello",database="db1"} 5.0
+    database_queries{name="hello",database="db2"} 10.0
+    database_queries{name="hello",database="db3"} 20.0
+    database_queries{name="hello",database="db4"} 25.0
+
+    # HELP http_server_requests_seconds
+    # TYPE http_server_requests_seconds summary
+    http_server_requests_seconds_count{exception="None",method="GET",outcome="SUCCESS",status="200",uberctx_service_name="depot",uri="/api/v1/documents/batch"} 2.0
+    http_server_requests_seconds_sum{exception="None",method="GET",outcome="SUCCESS",status="200",uberctx_service_name="depot",uri="/api/v1/documents/batch"} 0.165964327
+
+    # HELP http_server_requests_seconds_max
+    # TYPE http_server_requests_seconds_max gauge
+    http_server_requests_seconds_max{exception="None",method="GET",outcome="SUCCESS",status="200",uberctx_service_name="depot",uri="/api/v1/documents/batch"} 0.0
+
+    # HELP rooms_apm_seconds  
+    # TYPE rooms_apm_seconds histogram
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.001",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.001048576",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.001398101",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.001747626",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.002097151",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.002446676",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.002796201",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.003145726",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.003495251",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.003844776",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.004194304",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.005592405",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.006990506",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.008388607",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.009786708",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.011184809",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.01258291",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.013981011",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.015379112",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.016777216",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.022369621",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.027962026",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.033554431",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.039146836",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.044739241",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.050331646",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.055924051",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.061516456",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.067108864",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.089478485",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.111848106",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.134217727",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.156587348",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.178956969",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.20132659",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.223696211",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.246065832",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.268435456",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.357913941",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.447392426",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.536870911",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.626349396",} 0.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.715827881",} 1.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.805306366",} 5.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.894784851",} 8.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="0.984263336",} 9.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="1.073741824",} 10.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="1.431655765",} 13.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="1.789569706",} 14.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="2.147483647",} 14.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="2.505397588",} 15.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="2.863311529",} 15.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="3.22122547",} 15.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="3.579139411",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="3.937053352",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="4.294967296",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="5.726623061",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="7.158278826",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="8.589934591",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="10.021590356",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="11.453246121",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="12.884901886",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="14.316557651",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="15.748213416",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="17.179869184",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="22.906492245",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="28.633115306",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="30.0",} 16.0
+    rooms_apm_seconds_bucket{type_apm="coupon",le="+Inf",} 16.0
+    rooms_apm_seconds_count{type_apm="coupon",} 16.0
+    rooms_apm_seconds_sum{type_apm="coupon",} 19.709555

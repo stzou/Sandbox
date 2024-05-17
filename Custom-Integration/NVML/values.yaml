@@ -1,0 +1,32 @@
+targetSystem: "linux"
+datadog:
+  confd: 
+    nvml.yaml: |-
+      init_config:
+      instances:
+        -
+    php_fpm.yaml: |-
+      ad_identifiers:
+        - php_fpm
+      init_config:
+      instances:
+        - status_url: "http://%%host%%/status"
+          ping_url: "http://%%host%%/ping"
+          ping_reply: pong
+  apiKeyExistingSecret: datadog-agent
+  logLevel: DEBUG
+  # Disabling Kubelet verification for minikube
+  kubelet:
+    tlsVerify: false
+  # Ignoring some problematic integrations on minikube
+  ignoreAutoConfig:
+    - etcd
+    - kube_controller_manager 
+    - kube_scheduler 
+  kubeStateMetricsEnabled: false
+agents:
+  image: 
+    name: nvml1  # image_name
+    tag: v1  # image_tag
+    repository: docker.io/stzou/nvml1  # registry/repository/image_name
+    doNotCheckTag: true  # set to true to bypass helm chart's version requirements

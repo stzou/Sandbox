@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: random-logger
+  labels:
+    app: random-logger
+spec:
+  selector:
+    matchLabels:
+      app: random-logger
+  template:
+    metadata:
+      labels:
+        app: random-logger
+      annotations:
+        ad.datadoghq.com/busybox.logs: >-
+          [{
+            "source": "busybox",
+            "service": "my-app",
+            "log_processing_rules": [{
+              "type": "exclude_at_match",
+              "name": "exclude_datadoghq_users",
+              "pattern" : "\\{\"level\":\\d+,\"time\":\\d+,\"pid\":\\d+"
+            }]
+          }] 
+        # ad.datadoghq.com/busybox.logs: '[{"source":"busybox","service":"my-app","type":"file","path":"/var/log/example/app*.log"}]'
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          imagePullPolicy: Always
+          command: [ "/bin/sh", "-c", "--" ]
+          # args: [ 'while true; do sleep 15;
+          # echo {\"date\": \"2024-02-12T15:31:03.718408204Z\",\"level\": \"info\"}; 
+          # done;']
+
+          args: [ 'while true; do sleep 15;
+          echo {\"level\":30,\"time\":1707752232,\"pid\":20};
+          done;']
+
+          # args: [ 'while true; do sleep 10; 
+          # echo `date` first log file >> /var/log/example/app.log; 
+          # echo Wed Dec 13 15:21:04 UTC 2021 first log file >> /var/log/example/app.log; 
+          # done;']
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/example
+      volumes:
+        - name: logs
+          hostPath: 
+            path: /var/log/example
+# Mount the path in values.yaml
+#   volumes: #[]
+#   - name: busybox
+#     hostPath:
+#       path: /var/log/example
+#     # (...)
+#   #   - hostPath:
+#   #       path: <HOST_PATH>
+#   #     name: <VOLUME_NAME>
+
+#   # agents.volumeMounts -- Specify additional volumes to mount in all containers of the agent pod
+#   volumeMounts: #[]
+#   - mountPath: /var/log/example
+#     name: busybox

@@ -1,0 +1,21 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: steve-zou-EKS-cluster
+  region: us-west-2 #subject to change 
+  tags:
+    owner: SteveZou
+    team: cake
+nodeGroups:
+  - name: standard
+    instanceType: t3.medium
+    desiredCapacity: 2
+    volumeSize: 30
+# Fargate
+fargateProfiles:
+  - name: fp-default
+    selectors:
+      # All workloads in the "fargate" Kubernetes namespace will be
+      # scheduled onto Fargate
+      - namespace: fargate

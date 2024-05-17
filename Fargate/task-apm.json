@@ -1,0 +1,35 @@
+{
+    "family": "SteveZou-APM-Python",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "sample-python-app",
+            "image": "docker.io/jacksondavenport/sample-python-app",
+            "dockerLabels": {
+                "com.datadoghq.ad.check_names": "[\"http_check\"]",
+                "com.datadoghq.ad.init_configs": "[{}]",
+                "com.datadoghq.ad.instances": "[{\"url\": \"http://localhost:3000/\", \"name\":\"fargate-sample-python-app\"}]"
+            }
+        },
+        {
+            "name": "datadog-agent",
+            "image": "public.ecr.aws/datadog/agent:latest",
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DD_API_KEY",
+                    "value": "<MY_API_KEY>"
+                },
+                {
+                    "name": "ECS_FARGATE",
+                    "value": "true"
+                }
+            ]
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+  }

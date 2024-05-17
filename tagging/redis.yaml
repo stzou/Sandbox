@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: redis
+  labels:
+    name: redis
+    label1: test
+    team: datadog
+    admission.datadoghq.com/enabled: "true"
+  annotations:
+    admission.datadoghq.com/python-lib.version: latest
+    team_1: hi
+    team_2: hi
+    instrumentation.opentelemetry.io/inject-java: value
+    test: hi
+    
+    # ad.datadoghq.com/redis.check_names: '["rabbitmq"]'
+    # ad.datadoghq.com/redis.init_configs: "[{}]"
+    # ad.datadoghq.com/redis.instances: |
+    #   [
+    #     {"rabbitmq_api_url": "http://%%host%%:15672/api/",
+    #      "rabbitmq_user": "datadog",
+    #      "rabbitmq_pass": "ddpass789"
+    #     }
+    #   ]
+    # ad.datadoghq.com/redis.checks: |
+    #   {
+    #     "gatekeeper": {
+    #     "init_config": {},
+    #       "instances": [
+    #         {
+    #           "gatekeeper_health_endpoint": "http://%%host%%:9090",
+    #           "prometheus_url": "http://%%host%%:8888/metrics"
+    #         }
+    #       ]
+    #     }
+    #   }
+    # ad.datadoghq.com/redis.check_names: '["etcd"]'
+    # ad.datadoghq.com/redis.init_configs: "[{}]"
+    # ad.datadoghq.com/redis.instances: |
+    #   [{"prometheus_url": "https://%%host%%:%%port%%/metrics", 
+    #   "tls_ca_cert": "/etc/etcd-certs/etcd-client-ca.crt", 
+    #   "tls_cert": "/etc/etcd-certs/etcd-client.crt",
+    #   "tls_private_key": "/etc/etcd-certs/etcd-client.key"}]
+    # ad.datadoghq.com/redis.checks: |
+    #   {
+    #     "rabbitmq": {
+    #       "instances": [
+    #         {"prometheus_plugin": {"url": "%%host%%:15692"}}
+    #       ]
+    #     }
+    #   }  
+spec:
+  containers:
+    - name: redis
+      image: redis
+      ports:
+        - containerPort: 6379

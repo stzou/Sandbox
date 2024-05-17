@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-stress
+spec:
+  restartPolicy: Always
+  containers:
+  - name: demo-ctr
+    image: progrium/stress
+    resources:
+      limits:
+        memory: "128Mi"
+      requests:
+        memory: "64Mi"
+    args:
+    - --cpu 
+    - "1" 
+    - --io 
+    - "4" 
+    - --vm 
+    - "2"
+    - --vm-bytes 
+    - 256M
+    - --timeout
+    - 300s

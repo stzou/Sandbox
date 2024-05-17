@@ -1,0 +1,44 @@
+# Example busybox container outputting custom logs
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: busybox-custom-logs
+    labels:
+        app: custom-logs
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: custom-logs
+    template:
+        metadata:
+            labels:
+                app: custom-logs
+            annotations:
+                ad.datadoghq.com/busybox.logs: >-
+                  [{
+                      "source": "busybox",
+                      "service": "busybox",
+                      "log_processing_rules": [{
+                          "type": "multi_line",
+                          "name": "log_start_with_date",
+                          "pattern" : "\\[\\d{4}\\-\\d{2}\\-\\d{2}\\s\\d{2}\\:\\d{2}\\:\\d{2}"
+                      }]
+                  }]
+        spec:
+          containers:
+            - name: busybox
+              image: busybox
+              imagePullPolicy: Always
+              command: [ "/bin/sh", "-c", "--" ]
+              args: [ "while true; do sleep 3;
+                echo [`date '+%F %T %z' --utc`] example stdout log;
+                echo -n [`date '+%F %T %z' --utc`]; printf ' example multiline log line 1\n  File blah blahline2\n    result blah blah\n';
+                echo my log statement 1 w/o a date;
+                echo my log statement 2 w/o a date;
+                echo my log statement 3 w/o a date;
+                echo my log statement 4 w/o a date;
+                echo my log statement 5 w/o a date;
+                echo my log statement 6 w/o a date;
+                echo my log statement 7 w/o a date;
+                done;" ]

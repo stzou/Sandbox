@@ -1,0 +1,22 @@
+apiVersion: datadoghq.com/v2alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  global:
+    clusterName: opCluster
+    credentials:
+      apiSecret:
+        secretName: datadog-agent
+        keyName: api-key
+    kubelet:
+      tlsVerify: false
+  override:
+    nodeAgent:
+      containers:
+        agent:
+          env:
+            - name: "DD_IGNORE_AUTOCONF"
+              value: "kube_controller_manager kube_scheduler etcd"
+    clusterAgent:
+      replicas: 1

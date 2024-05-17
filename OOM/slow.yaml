@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-increase-pod
+spec:
+  containers:
+  - name: memory-increase-container
+    image: busybox
+    command: [ "/bin/sh" ]
+    args:
+      - "-c"
+      - "cat <(head -c 10m /dev/zero) <(sleep 30) | tail"
+    resources:
+      limits:
+        memory: "128Mi" # Set a memory limit here
+  - name: memory-increase-container2
+    image: busybox
+    command: [ "/bin/sh" ]
+    args:
+      - "-c"
+      - "cat <(head -c 200m /dev/zero) <(sleep 30) | tail"
+    resources:
+      limits:
+        memory: "128Mi" # Set a memory limit here
+  - name: memory-increase-container3
+    image: busybox
+    command: [ "/bin/sh" ]
+    args:
+      - "-c"
+      - "sleep 3000"
+    resources:
+      limits:
+        memory: "128Mi" # Set a memory limit here
