@@ -1,0 +1,49 @@
+datadog:
+  apiKey: <DATADOG_API_KEY>
+  apiKeyExistingSecret: # datadog-agent
+
+  clusterName: minikube-cluster
+
+  # prometheusScrape:
+  #   enabled: true
+
+  # Disable kubelet TLS Verification in minikube
+  kubelet:
+    tlsVerify: false
+
+  kubeStateMetricsEnabled: false
+  kubeStateMetricsCore:
+    enabled: true
+
+  orchestratorExplorer:
+    enabled: true
+  logs:
+    enabled: true
+    containerCollectAll: true
+  apm:
+    socketEnabled: false
+    portEnabled: true
+  processAgent:
+    enabled: true
+    processCollection: true
+
+  clusterChecks:
+    enabled: true
+
+  # These 3 integrations error by default in minikube
+  ignoreAutoConfig:
+    - etcd
+    - kube_controller_manager 
+    - kube_scheduler 
+
+clusterAgent:
+  enabled: true
+
+# agents:
+#   volumeMounts:
+#   - mountPath: /var/log/example
+#     name: busybox
+#   volumes:
+#   - name: busybox
+#     hostPath:
+#       path: /var/log/example

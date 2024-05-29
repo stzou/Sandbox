@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-logger
+  labels:
+    app: random-logger
+spec:
+  selector:
+    matchLabels:
+      app: random-logger
+  template:
+    metadata:
+      labels:
+        app: random-logger
+      annotations:
+        ad.datadoghq.com/busybox.logs: '[{"source": "busybox","service": "my-app","type": "file","path": "/var/log/example/app*.log"}]'
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          imagePullPolicy: Always
+          command: [ "/bin/sh", "-c", "--" ]
+          args: [ "while true; do sleep 15; 
+          echo `date` first log file >> /var/log/example/app.log; 
+          echo `date` second log file >> /var/log/example/app2.log; 
+          done;" ]
+
+          # args: [ 'while true; do sleep 15; 
+          # echo "{\"message\":\"LoggingRequest/Response\",\"context\":{\"Request\":{\"content\":{\"group_id\":\"24\",\"kind\":\"event\",\"start\":\"1680321600000\",\"end\":\"1682913599999\",\"view\":\"calendar\"}}},\"level\":200,\"level_name\":\"INFO\",\"channel\":\"development\"}"; 
+          # done;']
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/example
+      volumes:
+        - name: logs
+          hostPath: 
+            path: /var/log/example
